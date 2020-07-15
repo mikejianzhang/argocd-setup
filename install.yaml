@@ -2570,6 +2570,8 @@ spec:
         - --staticassets
         - /shared/app
         - --insecure
+        - --rootpath
+        - /argo
         image: argoproj/argocd:v1.6.1
         imagePullPolicy: Always
         livenessProbe:
@@ -2615,13 +2617,8 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
 spec:
   rules:
-  - host: argocd.example.com
-    http:
+  - http:
       paths:
       - backend:
           serviceName: argocd-server
           servicePort: https
-  tls:
-    - hosts:
-      - argocd.example.com
-      secretName: argocd-secret # do not change, this is provided by Argo CD
